@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heima.wemedia.mapper.WmMaterialMapper">
+
+    <resultMap id="resultMap" type="com.heima.model.wemedia.pojos.WmMaterial">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="url" property="url"/>
+        <result column="type" property="type"/>
+        <result column="is_collection" property="isCollection"/>
+        <result column="created_time" property="createdTime"/>
+    </resultMap>
+     <select id="getPictureList" resultMap="resultMap">
+        SELECT * FROM wm_material wm WHERE wm.user_id = #{apUserId} and wm.is_collection = #{collection}
+        order by wm.created_time DESC
+        LIMIT #{size} OFFSET #{offset}
+    </select>
+    <select id="getRecordsCount" resultType="java.lang.Integer">
+        select COUNT(*) FROM wm_material wm where wm.user_id = #{apUserId} and wm.is_collection = #{collection}
+    </select>
+</mapper>
